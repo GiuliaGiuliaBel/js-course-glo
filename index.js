@@ -34,7 +34,6 @@ let amount2 = prompt('Во сколько это обойдется?');
 let budgetMonth = money - amount1 - amount2;
 console.log(`Бюджет на месяц: ${budgetMonth}`);
 
-mission/budgetMonth;
 console.log(`Цель будет достигнута за: ${Math.ceil(mission/budgetMonth)} месяцев`);
 
 budgetDay = Math.floor(budgetMonth/30);
