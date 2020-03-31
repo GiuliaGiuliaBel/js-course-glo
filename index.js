@@ -1,6 +1,6 @@
 'use strict';
 
-let money = +prompt('Ваш месячный доход?'),
+let money, 
     income = 'фриланс',
     addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
     deposit = confirm('Есть ли у вас депозит в банке?'),
@@ -9,6 +9,11 @@ let money = +prompt('Ваш месячный доход?'),
     expensesMonth,
     accumulatedMonth,
     budgetDay;
+
+do {
+  money = parseInt(prompt('Ваш месячный доход?'));
+// проверяю money на NaN и 0 - единственные ложные значения, которые может вернуть parseInt
+} while (!money);
 
 let showTypeOf = function(data) {
     console.log(data, typeof(data));
