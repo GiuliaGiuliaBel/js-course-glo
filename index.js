@@ -27,8 +27,8 @@ addExpenses = addExpenses.toLowerCase().split(',');
 console.log('addExpenses', addExpenses);
 
 let expenses1 = prompt('Введите обязательную статью расходов'),
-    expenses2 = prompt('Введите обязательную статью расходов'),
     amount1 = +prompt('Во сколько это обойдется?'),
+    expenses2 = prompt('Введите обязательную статью расходов'),
     amount2 = +prompt('Во сколько это обойдется?');
 
 const getExpensesMonth = (amount1, amount2) => {
