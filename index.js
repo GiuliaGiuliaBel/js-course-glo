@@ -37,27 +37,18 @@ console.log('addExpenses', addExpenses);
 
 let expenses = [];
 
-let func = function() { 
-   do {
-       (cost = prompt('Во сколько это обойдется?'));
-    } while (!isNumber(cost));
-
-   if (isNumber(cost)) {
-    return cost;
-   }
-}
-
 let getExpensesMonth = function() {
     let sum = 0;
-    let finalRes = 0;
 
     for (let i = 0; i < 2; i++) { 
     
-        expenses[i] = prompt('Введите обязательную статью расходов');       
-        finalRes = func();     
-        sum += +finalRes; 
-    }
-         
+        expenses[i] = prompt('Введите обязательную статью расходов');  
+        do {
+            (cost = prompt('Во сколько это обойдется?'));
+         } while (!isNumber(cost));
+
+        sum += +cost; 
+    }         
     console.log('expenses ', expenses);    
     return sum;
 };
@@ -97,4 +88,3 @@ let getTargetMonth = function() {
 };
 
 console.log(getTargetMonth());
-
