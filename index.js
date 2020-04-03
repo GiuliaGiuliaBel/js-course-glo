@@ -44,9 +44,7 @@ let appData = {
                     (cost = prompt('Во сколько это обойдется?'));
               } while (!isNumber(cost));
 
-            appData.expenses[expensesItem] = +cost;
-            console.log(appData.expenses);
-            
+            appData.expenses[expensesItem] = +cost;           
           }
     },
     getExpensesMonth: function() {
