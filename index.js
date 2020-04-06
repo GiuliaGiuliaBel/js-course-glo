@@ -5,7 +5,6 @@ let isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-
 let money,
     start = function() {
         do {
@@ -53,7 +52,6 @@ let appData = {
       }
 
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-
         
             let stringResult = '';
             let singleItem;
@@ -116,13 +114,11 @@ let appData = {
        if(appData.deposit) {
 
          do {
-            appData.percentDeposit = prompt('Какой годовой процент?');
-            
+            appData.percentDeposit = prompt('Какой годовой процент?');          
          } while (!isNumber(appData.percentDeposit));
 
           do {
-            appData.moneyDeposit = +prompt('Какая сумма заложена');
-            
+            appData.moneyDeposit = +prompt('Какая сумма заложена');            
          } while (!isNumber(appData.moneyDeposit));
        }
     },
