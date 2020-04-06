@@ -42,7 +42,7 @@ let appData = {
 
          do {
             itemIncome = prompt('Какой у вас дополнительный заработок');
-         } while (isNumber(itemIncome));
+         } while (isNumber(itemIncome)|| itemIncome.trim() == '');    
 
          do {
             cashIncome = prompt('Сколько в месяц вы зарабатывает на этом?');
