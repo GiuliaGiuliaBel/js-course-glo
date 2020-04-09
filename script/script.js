@@ -153,7 +153,6 @@ let appData = {
             if (itemValue !== ''){
                 appData.addIncome.push(itemValue);
             }
-
         })
     },
 
