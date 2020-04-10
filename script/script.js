@@ -7,9 +7,6 @@ let depositCheck = document.querySelector('#deposit-check');
 // Работаем с NodeList
 // Метод querySelectorAll() Document возвращает статический (не динамический) NodeList, содержащий все найденные элементы документа, которые соответствуют указанному селектору.
 let additionalIncome = document.querySelectorAll('.additional_income-item');
-let additionalIncomeItem = additionalIncome[0];
-
-let additionalIncomeItem2 = additionalIncome[1];
 
 let buttons = document.getElementsByTagName('button');
 
@@ -66,15 +63,13 @@ let appData = {
     budgetMonth: 0,
     expensesMonth: 0,
     mission: 1400,
-    start: function() {
-             
+    start: function() {          
         appData.budget = +salaryAmount.value;
-        console.log(appData.budgetDay);
 
         appData.getExpenses();
         appData.getIncome();   
         appData.getExpensesMonth();
-
+        appData.getIncomeMonth();
         appData.getAddExpenses();
         appData.getAddIncome();
   
@@ -83,7 +78,7 @@ let appData = {
     },
     showResult: function() {
         budgetMonthValue.value = appData.budgetMonth;
-        
+
     // 3) Округлить вывод дневного бюджета
         
         budgetDayValue.value = Math.round(appData.budgetDay);
@@ -126,8 +121,8 @@ let appData = {
               }        
         })
     },
-    // 1)  Переписать метод getIncome аналогично getExpenses
 
+    // 1)  Переписать метод getIncome аналогично getExpenses
     getIncome: function() {
         incomeItems.forEach(item => {
             let itemIncome = item.querySelector('.income-title').value;
@@ -155,17 +150,21 @@ let appData = {
             }
         })
     },
-
     getExpensesMonth: function() {
         for(let key in appData.expenses) {
             appData.expensesMonth += +appData.expenses[key];
         }
         return appData.expensesMonth;
     },
+    getIncomeMonth: function() {
+        for(let key in appData.income) {
+            appData.incomeMonth += +appData.income[key];
+        }
+        return appData.incomeMonth;
+    },
     getBudget: function() {
         appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
-        console.log(appData.budgetMonth);
-        
+             
         appData.budgetDay = Math.floor(appData.budgetMonth/30);
     },
     getTargetMonth: function() {
@@ -213,15 +212,10 @@ salaryAmount.addEventListener('input', () => {
 
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 
+incomePlus.addEventListener('click', appData.addIncomeBlock);
+
 periodSelect.addEventListener('input', () => {  
     periodAmount.textContent = periodSelect.value;   
 });
 
-incomePlus.addEventListener('click', appData.addIncomeBlock);
-
-console.log('Расходы за месяц: ' + appData.getExpensesMonth);
-
-console.log(appData.getStatusIncome());
-
 appData.getInfoDeposit();
-
