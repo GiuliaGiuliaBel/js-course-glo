@@ -124,8 +124,6 @@ let appData = {
             incomeItems.forEach(item => {
                 item.remove();
             })
-
-            // показать кнопку
             incomePlus.style.display = 'block';
         }
 
