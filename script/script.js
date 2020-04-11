@@ -150,7 +150,6 @@ let appData = {
           startBtn.style.display = 'block';
           startBtn.disabled = false;
           allInputText.disabled = false;
-        //  appData.start();
     },
     addExpensesBlock: function() {
         expensesItems = document.querySelectorAll('.expenses-items');
