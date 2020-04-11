@@ -51,12 +51,6 @@ let resultDivItems = resultDiv.querySelectorAll('input[type=text]');
 startBtn.disabled = true;
 allInputText.disabled = false;
 
-let expensesMonth,
-    accumulatedMonth,
-    budgetDay;
-   
-let expenses = [];
-
 let appData = {
     income: {},
     incomeMonth: 0,
