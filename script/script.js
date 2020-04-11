@@ -64,7 +64,6 @@ let appData = {
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
-    mission: 1400,
     start: function() {   
 
         this.budget = +salaryAmount.value;
@@ -143,7 +142,20 @@ let appData = {
           cancelBtn.style.display = 'none';
           startBtn.style.display = 'block';
           startBtn.disabled = false;
-          allInputText.disabled = false;
+          allInputText.disabled = false;  
+        this.income = {}, 
+        this.incomeMonth = 0,
+        this.addIncome = [],
+        this.expenses = {},
+        this.addExpenses = [],
+        this.percentDeposit = 0,
+        this.moneyDeposit = 0,
+        this.budget = 0,
+        this.budgetDay = 0,
+        this.budgetMonth = 0,
+        this.expensesMonth = 0,
+        this.addExpenses = [],
+        this.deposit = false;
     },
     addExpensesBlock: function() {
         expensesItems = document.querySelectorAll('.expenses-items');
@@ -270,4 +282,3 @@ periodSelect.addEventListener('input', () => {
 });
 
 appData.getInfoDeposit();
-
