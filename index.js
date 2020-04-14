@@ -32,10 +32,5 @@ const DomElement = function(selector, height, width, bg, fontSize) {
       };
     }
     
-
 const domElem = new DomElement('.sdf', '50', '50', 'lightblue', '18');
 domElem.createElem();
-
-console.log(domElem);
-
-
