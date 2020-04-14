@@ -14,8 +14,7 @@ const DomElement = function(selector, height, width, bg, fontSize) {
                     divWithClass.style.backgroundColor = this.bg;
                     divWithClass.style.height = this.height + 'px';
                     divWithClass.style.width = this.width + 'px';
-                    divWithClass.style.fontSize = this.fontSize;
-                    divWithClass.style.position = 'absolute';
+                    divWithClass.style.fontSize = this.fontSize;    
                     divWithClass.classList.add('new-class');
                     divWithClass.textContent = 'Привет, мир!';
                     document.body.append(divWithClass);                        
@@ -24,8 +23,7 @@ const DomElement = function(selector, height, width, bg, fontSize) {
                     divWithId.style.backgroundColor = this.bg;
                     divWithId.style.height = this.height + 'px';
                     divWithId.style.width = this.width + 'px';
-                    divWithId.style.fontSize = this.fontSize;
-                    divWithId.style.position = 'absolute';
+                    divWithId.style.fontSize = this.fontSize;                  
                     divWithId.setAttribute('id', 'best');
                     divWithId.textContent = 'Привет, мир!';
                     document.body.append(divWithId);          
