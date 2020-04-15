@@ -319,7 +319,7 @@ addEventListeners() {
    allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наименование']").forEach(item => {
         item.addEventListener('keypress', this.doRussian);
    });  
-}
+ }
 };
 
 const appData = new AppData();
