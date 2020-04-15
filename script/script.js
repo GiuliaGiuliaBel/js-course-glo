@@ -51,7 +51,6 @@ let resultDivItems = resultDiv.querySelectorAll('input[type=text]');
 
 // устанавливаем начальные значения свойства disabled
 startBtn.disabled = true;
-allInputText.disabled = false;
 
 const AppData = function() {   
         this.income = {};
@@ -75,6 +74,10 @@ AppData.prototype.check = function(){
 };
 
 AppData.prototype.start = function(){  
+    if(salaryAmount.value === ''){
+        startBtn.setAttribute('disabled', 'true')
+    }
+
     this.budget = +salaryAmount.value;
     this.getExpenses();
     this.getIncome();   
@@ -92,32 +95,34 @@ AppData.prototype.start = function(){
 
     allInputText = data.querySelectorAll('input[type=text]');
     allInputText.forEach(item => {
-        item.disabled = true;  
+        item.setAttribute('disabled', 'true');  
     });
     
-    incomePlus.disabled = true;
-    expensesPlus.disabled = true;
+    incomePlus.setAttribute('disabled', 'true');
+    expensesPlus.setAttribute('disabled', 'true');
+    startBtn.setAttribute('disabled', 'true');
 };
 
 AppData.prototype.showResult = function() {
     const _this = this;
-    budgetMonthValue.value =  this.budgetMonth;   
+    budgetMonthValue.value = this.budgetMonth;   
     budgetDayValue.value = Math.round(this.budgetDay);
-    expensesMonthValue.value =  this.expensesMonth;
-    additionalExpensesValue.value =  this.addExpenses.join(', ');
-    additionalIncomeValue.value =  this.addIncome.join(', ');
-    targetMonthValue.value = Math.ceil( this.getTargetMonth());
-    incomePeriodValue.value =  this.calcSavedMoney();    
+    expensesMonthValue.value = this.expensesMonth;
+    additionalExpensesValue.value = this.addExpenses.join(', ');
+    additionalIncomeValue.value = this.addIncome.join(', ');
+    targetMonthValue.value = Math.ceil(this.getTargetMonth());
+    incomePeriodValue.value = this.calcSavedMoney();    
     periodSelect.addEventListener('input', () => { 
         incomePeriodValue.value = _this.calcSavedMoney();
     });
 };
 
 AppData.prototype.reset = function() {
-    incomePlus.disabled = false;
-    expensesPlus.disabled = false;
+
+    incomePlus.removeAttribute('disabled');
+    expensesPlus.removeAttribute('disabled');
     allInputText.forEach(item => {
-        item.disabled = false;  
+        item.removeAttribute('disabled');
         item.value = '';
     });  
     
@@ -149,8 +154,11 @@ AppData.prototype.reset = function() {
       
        cancelBtn.style.display = 'none';
        startBtn.style.display = 'block';
-       startBtn.disabled = false;
-       allInputText.disabled = false;
+       startBtn.removeAttribute('disabled');
+       allInputText.forEach(item => {
+        item.removeAttribute('disabled');
+        item.value = '';
+    });  
 };
 AppData.prototype.addExpensesBlock = function() {
     expensesItems = document.querySelectorAll('.expenses-items');
@@ -242,16 +250,14 @@ AppData.prototype.getAddIncome = function() {
     })
 };
 AppData.prototype.getExpensesMonth = function() {
-    for(let key in appData.expenses) {
-        appData.expensesMonth += +appData.expenses[key];
+    for(let key in this.expenses) {
+        this.expensesMonth += +this.expenses[key];
     }
-    return this.expensesMonth;
 };
 AppData.prototype.getIncomeMonth = function() {
-    for(let key in appData.income) {
-        appData.incomeMonth += +appData.income[key];
+    for(let key in this.income) {
+        this.incomeMonth += +this.income[key];
     }
-    return this.incomeMonth;
 };
 AppData.prototype.getBudget = function() {
     this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;        
@@ -301,17 +307,17 @@ AppData.prototype.doRussian = () => {
 AppData.prototype.addEventListeners = function() {
     salaryAmount.addEventListener('input', () => {
         if(salaryAmount.value.trim() !== '' && isNumber(salaryAmount.value)){
-            startBtn.disabled = false;
+            startBtn.removeAttribute('disabled');  
         } else if (salaryAmount.value.trim() === '' && !isNumber(salaryAmount.value)){
-            start.disabled = true;
+            startBtn.setAttribute('disabled', 'true');  
         };   
     });  
     
-    startBtn.addEventListener('click', appData.start.bind(appData));
+    startBtn.addEventListener('click', this.start.bind(this));
     // появляется кнопка Сбросить, на которую навешиваем событие и выполнение метода reset
-    cancelBtn.addEventListener('click', appData.reset.bind(appData));
-    expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
-    incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
+    cancelBtn.addEventListener('click', this.reset.bind(this));
+    expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
+    incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
     periodSelect.addEventListener('input', () => {  
         periodAmount.textContent = periodSelect.value;   
     });
@@ -319,9 +325,8 @@ AppData.prototype.addEventListeners = function() {
     allSumPlaceholders = document.querySelectorAll("[placeholder = 'Сумма']").forEach(item => {
         item.addEventListener('keypress', this.keypressFuncSum);
    });
-   //********************************************************************/
-   // Поля с placeholder="Наименование" разрешить ввод только русских букв пробелов и знаков препинания
-   allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наименование']").forEach(item => {
+    // Только русских букв
+    allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наименование']").forEach(item => {
         item.addEventListener('keypress', this.doRussian);
    });  
 };
@@ -329,4 +334,3 @@ AppData.prototype.addEventListeners = function() {
 const appData = new AppData();
 appData.check();
 appData.addEventListeners();
-
