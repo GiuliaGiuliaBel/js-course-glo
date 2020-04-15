@@ -9,6 +9,9 @@ const buttons = document.getElementsByTagName('button');
 
 const incomePlus = buttons[0];
 const expensesPlus = buttons[1];
+console.log(incomePlus);
+console.log(expensesPlus);
+
 
 // resultTotal 
 let budgetMonthValue = document.getElementsByClassName('result-total budget_month-value')[0];
@@ -76,9 +79,11 @@ start() {
     this.budget = +salaryAmount.value;
     this.getExpInc();
     this.getExpensesMonth();
-    this.getAddExpInc();
+    // this.getAddExpInc();
     this.getBudget();
     this.showResult();
+    this.addExpensesBlock();
+    this.addIncomeBlock();
 
     startBtn.style.display = "none";
     cancelBtn.style.display = "block";
@@ -162,33 +167,82 @@ reset() {
     this.budgetMonth = 0;
     this.expensesMonth = 0;
 };
-addBlock() {   
-  
-    const cloneItem = item => {
-        console.log(item);
-        
-        const expincStr = item.className.split('-')[0];
-        let expincomeItems = document.querySelectorAll(`.${expincStr}-items`);
-        let cloneIncomeItem = expincomeItems[0].cloneNode(true);
-        cloneIncomeItem.querySelector(`.${expincStr}-title`).value = '';
-        cloneIncomeItem.querySelector(`.${expincStr}-amount`).value = '';  
-    
-        expincomeItems[0].parentNode.insertBefore(cloneIncomeItem, `${expincStr}Plus`);
-        expincomeItems = document.querySelectorAll(`.${expincStr}-items`);
-        
-        if(expincomeItems.length === 3){
-            
-            `${expincStr}Plus`.style.display = 'none';
-        }      
-    };
-   
-    incomeItems.forEach(cloneItem);
-    expensesItems.forEach(cloneItem);
+addExpensesBlock() {
+    expensesItems = document.querySelectorAll('.expenses-items');
+    let cloneExpensesItem = expensesItems[0].cloneNode(true);
+
+    // Реализовать так, чтобы инпуты добавлялись пустые без value при добавлении новых полей в обязательных расходах
+    cloneExpensesItem.querySelector('.expenses-title').value = '';
+    cloneExpensesItem.querySelector('.expenses-amount').value = '';
+    expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
+    expensesItems = document.querySelectorAll('.expenses-items');
+    if(expensesItems.length === 3){
+        expensesPlus.style.display = 'none';
+    }
+
+    // Поля с placeholder="Сумма" разрешить ввод только цифр
+
+    allSumPlaceholders = document.querySelectorAll("[placeholder = 'Сумма']");
+    allSumPlaceholders.forEach(item => {
+         item.addEventListener('keypress', this.keypressFuncSum);
+    });
+
+/********************************************************************/
+// Поля с placeholder="Наименование" разрешить ввод только русских букв пробелов и знаков препинания
+    allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наименование']");
+    allNamePlaceholders.forEach(item => {
+        item.addEventListener('keypress', this.doRussian);
+         })
 };
+addIncomeBlock(){
+    incomeItems = document.querySelectorAll('.income-items');
+    let cloneIncomeItem = incomeItems[0].cloneNode(true);
+
+    //Реализовать так, чтобы инпуты добавлялись пустые без value при добавлении новых полей в дополнительных доходах 
+    cloneIncomeItem.querySelector('.income-title').value = '';
+    cloneIncomeItem.querySelector('.income-amount').value = '';
+    incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+    incomeItems = document.querySelectorAll('.income-items');
+    if(incomeItems.length === 3){
+        incomePlus.style.display = 'none';
+    }
+
+    // Поля с placeholder="Сумма" разрешить ввод только цифр
+    allSumPlaceholders = document.querySelectorAll("[placeholder = 'Сумма']").forEach(item => {
+         item.addEventListener('keypress', this.keypressFuncSum);
+    });
+    //********************************************************************/
+    // Поля с placeholder="Наименование" разрешить ввод только русских букв пробелов и знаков препинания
+    allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наименование']").forEach(item => {
+         item.addEventListener('keypress', this.doRussian);
+    })
+};
+// addBlock() {   
+  
+//     const cloneItem = item => {
+//         console.log(item);
+        
+//         const expincStr = item.className.split('-')[0];
+//         let expincomeItems = document.querySelectorAll(`.${expincStr}-items`);
+//         let cloneIncomeItem = expincomeItems[0].cloneNode(true);
+//         cloneIncomeItem.querySelector(`.${expincStr}-title`).value = '';
+//         cloneIncomeItem.querySelector(`.${expincStr}-amount`).value = '';  
+    
+//         expincomeItems[0].parentNode.insertBefore(cloneIncomeItem, `${expincStr}Plus`);
+//         expincomeItems = document.querySelectorAll(`.${expincStr}-items`);
+        
+//         if(expincomeItems.length === 3){
+            
+//             `${expincStr}Plus`.style.display = 'none';
+//         }      
+//     };
+   
+//     incomeItems.forEach(cloneItem);
+//     expensesItems.forEach(cloneItem);
+// };
 getExpInc() {
    const count = (item, index) => {
-        const startStr = item.className.split('-')[0];
-        
+        const startStr = item.className.split('-')[0];       
         const itemTitle = item.querySelector(`.${startStr}-title`).value;
         const itemAmount = item.querySelector(`.${startStr}-amount`).value;
 
@@ -197,7 +251,6 @@ getExpInc() {
         }        
     };
     incomeItems.forEach(count);
-    console.log(expensesItems);
     
     expensesItems.forEach(count);
     for(let key in this.income) {
@@ -284,8 +337,8 @@ addEventListeners() {
     startBtn.addEventListener('click', this.start.bind(this));
     // появляется кнопка Сбросить, на которую навешиваем событие и выполнение метода reset
     cancelBtn.addEventListener('click', this.reset.bind(this));
-    expensesPlus.addEventListener('click', this.addBlock.bind(this));
-    incomePlus.addEventListener('click', this.addBlock.bind(this));
+    expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
+    incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
     periodSelect.addEventListener('input', () => {  
         periodAmount.textContent = periodSelect.value;   
     });
