@@ -2,9 +2,7 @@
 
 const startBtn = document.getElementById('start');
 const cancelBtn = document.getElementById('cancel');
-
 const depositCheck = document.querySelector('#deposit-check');
-
 const buttons = document.getElementsByTagName('button');
 
 const incomePlus = buttons[0];
@@ -19,7 +17,6 @@ let additionalExpensesValue = document.getElementsByClassName('result-total addi
 let incomePeriodValue = document.getElementsByClassName('result-total income_period-value')[0];
 let targetMonthValue = document.getElementsByClassName('result-total target_month-value')[0];
 
-// получаем оставшиеся Input со страницы
 const salaryAmount = document.querySelector('.salary-amount');
 const incomeTitle = document.querySelector('.income-title');
 const incomeAmount = document.querySelector('.income-amount');
@@ -39,7 +36,6 @@ let allNamePlaceholders = document.querySelectorAll("[placeholder = 'Наиме�
 
 const isNumber = n => !isNaN(parseFloat(n)) && isFinite(n);
 
-//получаем 2 главных дива из разметки
 const data = document.querySelector('.data');
 const resultDiv = document.querySelector('.result');
 
@@ -60,8 +56,7 @@ class AppData {
         this.budgetDay = 0;
         this.budgetMonth = 0;
         this.expensesMonth = 0;
-  }  
-        
+ }        
 check() {
     startBtn.setAttribute('disabled', 'true');
     if(salaryAmount.value !== ''){
@@ -72,7 +67,6 @@ start() {
     if(salaryAmount.value === ''){
         startBtn.setAttribute('disabled', 'true')
     }
-
     this.budget = +salaryAmount.value;
     this.getExpenses();
     this.getIncome();   
@@ -97,7 +91,6 @@ start() {
     expensesPlus.setAttribute('disabled', 'true');
     startBtn.setAttribute('disabled', 'true');
 };
-
 showResult(){   
     budgetMonthValue.value = this.budgetMonth;   
     budgetDayValue.value = Math.round(this.budgetDay);
@@ -118,7 +111,7 @@ reset() {
         item.removeAttribute('disabled');
         item.value = '';
     });  
-    
+   
     resultDivItems.forEach(item => {
         item.value = '';
     });
@@ -130,8 +123,6 @@ reset() {
         incomeItems.forEach(item => {
             item.remove();
         })
-
-        // показать кнопку
         incomePlus.style.display = 'block';
     }
 
@@ -141,18 +132,15 @@ reset() {
         expensesItems.forEach(item => {
             item.remove();
         })
-    // показать кнопку, нажатие по которой клонирует поля
         expensesPlus.style.display = 'block';
-    };
-      
+    };      
        cancelBtn.style.display = 'none';
        startBtn.style.display = 'block';
        startBtn.removeAttribute('disabled');
        allInputText.forEach(item => {
         item.removeAttribute('disabled');
         item.value = '';
-    });
-    
+    });   
     this.income = {};
     this.incomeMonth = 0;
     this.addIncome = [];
@@ -313,8 +301,7 @@ addEventListeners() {
         } else if (salaryAmount.value.trim() === '' && !isNumber(salaryAmount.value)){
             startBtn.setAttribute('disabled', 'true');  
         };   
-    });  
-    
+    });     
     startBtn.addEventListener('click', this.start.bind(this));
     // появляется кнопка Сбросить, на которую навешиваем событие и выполнение метода reset
     cancelBtn.addEventListener('click', this.reset.bind(this));
