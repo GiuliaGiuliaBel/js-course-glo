@@ -185,7 +185,7 @@ addExpensesBlock() {
     allNamePlaceholders.forEach(item => {
         item.addEventListener('keypress', this.doRussian);
          })
-    }
+ }
 addIncomeBlock() {   
     incomeItems = document.querySelectorAll('.income-items');
     let cloneIncomeItem = incomeItems[0].cloneNode(true);
@@ -294,7 +294,7 @@ doRussian = () => {
         return true;
     }
         return false;
-};
+}
 changePercent() {
     const valueSelect = this.value;
    
@@ -362,9 +362,7 @@ addEventListeners() {
         item.addEventListener('keypress', this.doRussian);
    });  
    depositCheck.addEventListener('change', this.depositHandler.bind(this));
-
- };
- 
+  }; 
 };
 
 const appData = new AppData();
