@@ -280,7 +280,7 @@ getInfoDeposit() {
    }
 }
 calcSavedMoney() {
-  return this.budgetMonth * periodSelect.value;
+  return Math.round(this.budgetMonth * periodSelect.value);
 }
 keypressFuncSum = e => {
     if (event.keyCode != 43 && event.keyCode < 48 || event.keyCode > 57)
@@ -297,7 +297,7 @@ doRussian = () => {
 }
 changePercent() {
     const valueSelect = this.value;
-   
+    depositAmount.value = '';  
     if(valueSelect === 'other'){
         depositPercent.style.display = 'inline-block';
         depositPercent.removeAttribute('disabled');  
