@@ -109,7 +109,6 @@ showResult(){
     });
 }
 reset() { 
-
     incomePlus.removeAttribute('disabled');
     expensesPlus.removeAttribute('disabled');
     allInputText.forEach(item => {
@@ -297,7 +296,8 @@ doRussian = () => {
 }
 changePercent() {
     const valueSelect = this.value;
-    depositAmount.value = '';  
+    depositAmount.value = ''; 
+    depositPercent.value = '';
     if(valueSelect === 'other'){
         depositPercent.style.display = 'inline-block';
         depositPercent.removeAttribute('disabled');  
