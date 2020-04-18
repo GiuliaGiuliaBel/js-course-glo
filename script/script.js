@@ -107,7 +107,7 @@ start() {
                   arr.push('document.cookie '  + '= "' + y + '=' + myItems[y] + "\"");                                                  
                }
             } 
-        arr.push('document.cookie ' + '=' + "\"isLoad = true");
+        arr.push('document.cookie ' + '=' + "\"isLoad = true" + "\"");
          let stri = '';
                 arr.forEach(item => {
                     stri += item + ';'        
