@@ -85,14 +85,6 @@ start() {
     startBtn.style.display = "none";
     cancelBtn.style.display = "block";
     
-    //Блокировать все input[type=text] 
-    // let arrLocal = [];
-    // arrLocal = [localStorage.setItem('budgetMonth', this.budgetMonth), localStorage.setItem('budgetDay', Math.round(this.budgetDay)),
-    //     localStorage.setItem('expensesMonth', this.expensesMonth), localStorage.setItem('addExpenses', this.addExpenses.join(', ')),
-    //     localStorage.setItem('addIncome', this.addIncome.join(', ')), 
-    //     localStorage.setItem('targetMonth', Math.ceil(this.getTargetMonth())), 
-    //     localStorage.setItem('calcSavedMoney', this.calcSavedMoney())];
-
     const myCookies = 
     [
         {budgetMonth: this.budgetMonth},
