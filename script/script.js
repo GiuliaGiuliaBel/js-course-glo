@@ -60,6 +60,7 @@ class AppData {
         this.budgetDay = 0;
         this.budgetMonth = 0;
         this.expensesMonth = 0;
+
  }        
 check() {
     startBtn.setAttribute('disabled', 'true');
@@ -84,39 +85,40 @@ start() {
 
     startBtn.style.display = "none";
     cancelBtn.style.display = "block";
-    
-    const myCookies = 
-    [
-        {budgetMonth: this.budgetMonth},
-        {budgetDay: Math.round(this.budgetDay)},
-        {expensesMonth: this.expensesMonth},
-        {addExpenses : this.addExpenses.join(', ')},
-        {addIncome : this.addIncome.join(', ')},
-        {targetMonth : Math.ceil(this.getTargetMonth())},
-        {calcSavedMoney : this.calcSavedMoney()}
-    ];
-   
-        function setCookies(myCookies) {
-            let arr = [];
-            for(let i of Object.keys(myCookies)) {
-               let myItems = myCookies[i];
-               console.log(myItems)
 
-               
-               for(let y of Object.keys(myItems)) {
-                  arr.push('document.cookie '  + '= "' + y + '=' + myItems[y] + "\"");                                                  
-               }
-            } 
-        arr.push('document.cookie ' + '=' + "\"isLoad = true" + "\"");
-         let stri = '';
-                arr.forEach(item => {
-                    stri += item + ';'        
-        });  
-        console.log(stri);
-        
-        return stri;          
+    const myCookies = 
+    {
+        budgetMonth: this.budgetMonth,
+        budgetDay: Math.round(this.budgetDay),
+        expensesMonth: this.expensesMonth,
+        addExpenses : this.addExpenses.join(', '),
+        addIncome : this.addIncome.join(', '),
+        targetMonth : Math.ceil(this.getTargetMonth()),
+        calcSavedMoney : this.calcSavedMoney(),
+        isLoad : true
+    };
+
+    function getStorage() {
+        for(let i of Object.keys(myCookies)) {
+            localStorage.getItem(i, myCookies[i])
+      }   
     }
 
+    function setStorage() {     
+        for(let i of Object.keys(myCookies)) {
+            localStorage.setItem(i, myCookies[i])
+      }
+           
+    }
+   
+    function setCookies(myCookies) {                   
+        for(let i of Object.keys(myCookies)) {                          
+                document.cookie = i + '=' + myCookies[i];                                                  
+        }
+    }    
+       
+    setStorage(this.myCookies);
+    getStorage();
     setCookies(myCookies);
      
     allInputText = data.querySelectorAll('input[type=text]');
@@ -176,6 +178,8 @@ reset() {
        allInputText.forEach(item => {
         item.removeAttribute('disabled');
         item.value = '';
+        
+        localStorage.clear();
     });   
     this.income = {};
     this.incomeMonth = 0;
@@ -367,6 +371,11 @@ depositHandler() {
         this.deposit = false;
         depositBank.removeEventListener('change', this.changePercent);
     }
+}
+removeItemfromStorage(){
+    for(let i of Object.keys(myCookies)) {
+        localStorage.removeItem(i, myCookies[i])
+  }
 };
 addEventListeners() {
     salaryAmount.addEventListener('input', () => {
