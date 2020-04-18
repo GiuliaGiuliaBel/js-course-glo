@@ -98,17 +98,10 @@ start() {
         isLoad : true
     };
 
-    function getStorage() {
-        for(let i of Object.keys(myCookies)) {
-            localStorage.getItem(i, myCookies[i])
-      }   
-    }
-
     function setStorage() {     
         for(let i of Object.keys(myCookies)) {
             localStorage.setItem(i, myCookies[i])
-      }
-           
+        }         
     }
    
     function setCookies(myCookies) {                   
@@ -118,7 +111,6 @@ start() {
     }    
        
     setStorage(this.myCookies);
-    getStorage();
     setCookies(myCookies);
      
     allInputText = data.querySelectorAll('input[type=text]');
@@ -129,7 +121,12 @@ start() {
     incomePlus.setAttribute('disabled', 'true');
     expensesPlus.setAttribute('disabled', 'true');
     startBtn.setAttribute('disabled', 'true');
-};
+}
+getStorage() {
+    for(let i of Object.keys(myCookies)) {
+        localStorage.getItem(i, myCookies[i])
+  }   
+}
 showResult(){   
     budgetMonthValue.value = this.budgetMonth;   
     budgetDayValue.value = Math.round(this.budgetDay);
@@ -390,6 +387,7 @@ addEventListeners() {
     cancelBtn.addEventListener('click', this.reset.bind(this));
     expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
     incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
+    document.addEventListener('DOMContentLoaded', this.getStorage);
     periodSelect.addEventListener('input', () => {  
         periodAmount.textContent = periodSelect.value;   
     });
