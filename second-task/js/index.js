@@ -65,9 +65,9 @@ const appendAMPM = clockTime =>
 
 const getDa = clockTime => ({
     ...clockTime,
-    dayda: ((clockTime.hours >= 0 && clockTime.hours <= 4) && clockTime.ampm === 'AM') ?
+    dayda: ((clockTime.hours >= 1 && clockTime.hours <= 4) || (clockTime.hours == 12) && clockTime.ampm === 'AM') ?
         'Доброй ночи' :
-        ((clockTime.hours >= 0 && clockTime.hours <= 5) && clockTime.ampm === 'PM') ?
+        ((clockTime.hours >= 6 && clockTime.hours < 12) && clockTime.ampm === 'PM') ?
         'Добрый вечер' :
         'Доброе утро'
 });
