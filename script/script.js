@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
     function prependZero(timerValue){
         if(timerValue <= 9){
             return '0' + timerValue;
-        }return timerValue;
+        }return timerValue
     }
 
     function updateClock(){
@@ -47,6 +47,6 @@ window.addEventListener('DOMContentLoaded', () => {
    updateClock();
 
 }  
- countTimer('1 May 2000');
+ countTimer('1 May 2000')
 });        
     
