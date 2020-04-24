@@ -48,6 +48,30 @@ window.addEventListener('DOMContentLoaded', () => {
 
 }  
  countTimer('1 May 2020');
+    
+ //меню
+ 
+ const toggleMenu = () => {
+    const btnMenu = document.querySelector('.menu'),
+        menu = document.querySelector('menu'),
+        closeBtn = document.querySelector('.close-btn'),
+        //получить вложенные элементы в меню
+        menuItems = menu.querySelectorAll('ul>li');
+
+    const handlerMenu = () => {
+        if(!menu.style.transform || menu.style.transform === `translate(-100%)`){
+            menu.style.transform = `translate(0)`;
+        }else{
+            menu.style.transform = `translate(-100%)`;
+        }
+    };
+
+    btnMenu.addEventListener('click', handlerMenu);
+    closeBtn.addEventListener('click', handlerMenu);
+    menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
+};
+ 
+ toggleMenu();
 
  const slider = () => {
      
