@@ -82,7 +82,8 @@ const toggleMenu = () => {
          if((popupContent.style.left.slice(0, popupContent.style.left.length-2)) < (popup.clientWidth/2.5)){        
              popupContent.style.left = count*15 + 'px';
          }else{
-         cancelAnimationFrame(idInter);
+             cancelAnimationFrame(idInter);
+             count = 0;
          }
  }; 
 
@@ -90,6 +91,7 @@ const toggleMenu = () => {
  const togglePopup = () => {
     const popup = document.querySelector('.popup'),
         popupBtn = document.querySelectorAll('.popup-btn'),
+        popupContent = popup.querySelector('.popup-content'),
         popupClose = document.querySelector('.popup-close');
       
         popupBtn.forEach(elem => {
@@ -105,6 +107,7 @@ const toggleMenu = () => {
 
         popupClose.addEventListener('click', () => {
             popup.style.display = 'none';
+            popupContent.removeAttribute('style');
         });
  };
  togglePopup();
