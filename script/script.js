@@ -281,25 +281,25 @@ tabs();
 
   changeImages();
 
+  //разрешить ввод только цифр в поля input type='number'
+  
   const allowOnlyNumbers = () => {
 
-    const calculate = document.querySelector('#calc');
-    calculate.addEventListener('keydown', e => {
+    const inputTypeNumberElems = document.querySelectorAll('input[type="number"]');
+
+    inputTypeNumberElems.forEach(elem => {
+        elem.addEventListener('input', e => {
         
         let target = e.target;     
-      
-        //если значение инпута от 0 до 9 или 
-        if (/[^0-9]/g.test(target.value) ||
-        // и клавиша нажатая не e
-        e.keyCode === 69
-        ){
-            e.preventDefault();
-        }     
+        
+       // если не цифры - заменяем на ''
+       target.value = target.value.replace(/[^\d]/g, '');   
+        });
     });
   }; 
 
   allowOnlyNumbers();
-
+  
   // калькулятор
 
   const calc = (price = 100) => {
