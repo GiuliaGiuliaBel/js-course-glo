@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 };
 
-countTimer('1 May 2000');
+countTimer('1 May 2020');
 
 const toggleMenu = () => {
     const menu = document.querySelector('menu');
