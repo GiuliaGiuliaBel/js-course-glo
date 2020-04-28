@@ -104,11 +104,11 @@ class Validator{
     applyStyle(){
         const style = document.createElement('style');
         style.textContent = `
-             input.success {
-                border: 5px solid green !important
+            body form input.success {
+                border: 5px solid green
             }
-             input.error {
-                border: 5px solid red !important
+            body form input.error {
+                border: 5px solid red 
             }
             .validator-error {
                 font-size: 12px;
