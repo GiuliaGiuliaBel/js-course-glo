@@ -225,7 +225,7 @@ tabs();
                     });
                 }
                 if(currentSlide >= slide.length){
-                    currenSldie = 0;
+                    currentSlide = 0;
                 }
 
                 if(currentSlide < 0){
