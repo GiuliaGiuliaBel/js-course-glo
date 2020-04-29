@@ -135,7 +135,7 @@ class Validator{
         }   
 
          if(!this.pattern.message){
-            this.pattern.message = /^[а-яА-Я]{20,}/;
+          this.pattern.message = /^[а-яА-Я\s]{20,}/;
         }        
     }
 }
