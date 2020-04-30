@@ -375,7 +375,7 @@ tabs();
 
         const validateInput = (input) => {
             input.addEventListener('input', event => {
-                event.target.value = event.target.value.(/[^а-я ]/gi, '');
+                event.target.value = event.target.value.replace(/[^а-я ]/gi, '');
             });
         };
 
