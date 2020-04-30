@@ -375,7 +375,7 @@ tabs();
 
         const validateInput = (input) => {
             input.addEventListener('input', event => {
-                event.target.value = event.target.value.replace(/^[a-zA-z]{3,}/, '');
+                event.target.value = event.target.value.(/[^а-я ]/gi, '');
             });
         };
 
