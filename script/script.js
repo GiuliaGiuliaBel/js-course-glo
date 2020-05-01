@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 };
 
-countTimer('1 May 2020');
+countTimer('1 May 2000');
 
 const toggleMenu = () => {
     const menu = document.querySelector('menu');
@@ -308,57 +308,46 @@ tabs();
         calcSquare = document.querySelector('.calc-square'),
         calcDay = document.querySelector('.calc-day'),
         calcCount = document.querySelector('.calc-count'),
-        totalValue = document.getElementById('total');
+        totalValue = document.getElementById('total')
+        const countSum = () => {
+            let total = 0,
+                countValue = 1,
+                dayValue = 1;
 
-  const countSum = () => {
-  
-       let total = 0,
-       countValue = 1,
-       dayValue = 1;
-       // const, так как каждый раз создается новая переменная при срабатывании этого события
-       const typeValue = calcType.options[calcType.selectedIndex].value,
-            //строку преобразуем в число
-             squareValue = calcSquare.value;
+                const typeValue = calcType.options[calcType.selectedIndex].value,       
+                    squareValue = +calcSquare.value;
 
-             if(calcCount.value > 1){
-                countValue += (calcCount.value - 1) / 10;
-             }
+                if(calcCount.value > 1){
+                    countValue += (calcCount.value - 1) / 10;
+                 }
 
-             if (calcDay.value && calcDay.value < 5) {
-                dayValue *= 2;
-              } else if (calcDay.value && calcDay.value < 10) {
-                dayValue *= 1.5;
-              }
+                if(calcDay.value === '0'){
+                    dayValue = 0;            
+                }
+                if(calcDay.value && calcDay.value < 5){
+                    dayValue *= 2;
+                }else if(calcDay.value < 10){
+                    dayValue *= 1.5;
+                }
 
-             if(typeValue && squareValue){
-                 total = price * typeValue * squareValue * countValue * dayValue;
-             } 
+                if(typeValue && squareValue && dayValue.value !== 1){
+                    total = Math.round(price * typeValue * squareValue * countValue * dayValue);
+                }
 
-             totalValue.textContent = total;
+                totalValue.textContent = total;
+        };
 
-  };
-
-        //если что-то меняется на инпутах, селектах
-    calcBlock.addEventListener('change', e => {
-        const target = e.target;
-        //три варианта записи условия if
-        // if(target.matches('.calc-type') || target.matches('.calc-square') ||
-        //     target.matches('.calc-day') || target.matches('.calc-count')){
-        //         console.log(target);              
-        //     }
-        // if(target === calcType || target === calcSquare ||
-        //     target === calcDay || target === calcCount){
-        //         console.log(1);               
-        //     }
-        if(target.matches('select') || target.matches('input')){
-            countSum();    
-        }
-        
-    });
-
+        calcBlock.addEventListener('change', (e) => {
+            const target = event.target;
+            // искать класс, на котором произошло событие, перечислить все четыре элемента
+            if(target.matches('.calc-type') || target.matches('.calc-square') ||
+            target.matches('.calc-day') || target.matches('.calc-count')){
+               countSum();            
+            }
+        });
   };
 
   calc(100);
 
-});      
+});        
     
