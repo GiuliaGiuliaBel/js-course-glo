@@ -168,5 +168,20 @@ anchors.forEach(item => item.addEventListener('click', scrollFunc));
 //             });
 //         });
 //     });
+  
+  const showNextSlideScroll = (elem) => {
+    document.querySelector('#' + elem.href.split('#')[1]).scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+const scrollNextSlide = (selectorName) => {
+    const elemToScroll = document.querySelector(selectorName);
+    elemToScroll.addEventListener('click', (e) => {
+        e.preventDefault();
+        showNextSlideScroll(elemToScroll);
+    })
+}
+  scrollNextSlide('a[href="#service-block"]');
 });        
     
