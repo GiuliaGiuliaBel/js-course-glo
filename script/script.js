@@ -112,5 +112,61 @@ const toggleMenu = () => {
  };
  togglePopup();
 
+   //scroll
+  const scrollFunc = e => {
+    const anchor = event.currentTarget.href.split('#')[1];
+    console.log(anchor);
+        
+    const target = document.querySelector(`#${anchor}`);
+
+    if (target) {
+        e.preventDefault();
+        const targetTop = target.getBoundingClientRect().y;
+
+        function animate({duration, timing, draw}) {
+            const start = performance.now();
+            
+            requestAnimationFrame(function animate(time) {
+              
+                 // timeFraction изменяется от 0 до 1
+                let timeFraction = (time - start) / duration;
+                
+                // вычисление текущего состояния анимации
+                let progress = timing(timeFraction);
+    
+                draw(progress); // отрисовать её
+    
+                if (timeFraction < 1) {
+                    requestAnimationFrame(animate);
+                }
+            });
+        }
+        
+        animate({
+            duration: 300,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                if (document.documentElement.scrollTop < (progress * targetTop)) {
+                    document.documentElement.scrollTop = progress * targetTop;
+                }
+            }
+        });
+    }
+};
+const anchors = document.querySelectorAll('a[href^="#"]');
+anchors.forEach(item => item.addEventListener('click', scrollFunc));
+
+// Второй вариант
+// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function(e){
+//         e.preventDefault();
+
+//         document.querySelector(this.getAttribute('href')).scrollIntoView({
+//             behavior: 'smooth'
+//             });
+//         });
+//     });
 });        
     
