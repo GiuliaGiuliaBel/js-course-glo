@@ -487,6 +487,7 @@ const scrollNextSlide = (selectorName) => {
         // создать прелоадер
         const preloader = document.createElement('div');
         preloader.classList.add('preloader');
+        preloader.style.color = 'white';
         const preloaderRow = document.createElement('div');
         preloaderRow.classList.add('preloader__row');
         const preloaderItem= document.createElement('div');
