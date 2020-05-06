@@ -189,7 +189,67 @@ const tabs = () => {
 };
 tabs();
 
+//scroll
+  const scrollFunc = e => {
+    const anchor = event.currentTarget.href.split('#')[1];
+    console.log(anchor);
+        
+    const target = document.querySelector(`#${anchor}`);
 
+    if (target) {
+        e.preventDefault();
+        const targetTop = target.getBoundingClientRect().y;
+
+        function animate({duration, timing, draw}) {
+            const start = performance.now();
+            
+            requestAnimationFrame(function animate(time) {
+              
+                 // timeFraction изменяется от 0 до 1
+                let timeFraction = (time - start) / duration;
+                
+                // вычисление текущего состояния анимации
+                let progress = timing(timeFraction);
+    
+                draw(progress); // отрисовать её
+    
+                if (timeFraction < 1) {
+                    requestAnimationFrame(animate);
+                }
+            });
+        }
+        
+        animate({
+            duration: 300,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                if (document.documentElement.scrollTop < (progress * targetTop)) {
+                    document.documentElement.scrollTop = progress * targetTop;
+                }
+            }
+        });
+    }
+};
+const anchors = document.querySelectorAll('a[href^="#"]');
+anchors.forEach(item => item.addEventListener('click', scrollFunc));
+
+const showNextSlideScroll = (elem) => {
+    document.querySelector('#' + elem.href.split('#')[1]).scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+const scrollNextSlide = (selectorName) => {
+    const elemToScroll = document.querySelector(selectorName);
+    elemToScroll.addEventListener('click', (e) => {
+        e.preventDefault();
+        showNextSlideScroll(elemToScroll);
+    })
+}
+  scrollNextSlide('a[href="#service-block"]');
+  
  //popup
  const togglePopup = () => {
     const popup = document.querySelector('.popup'),
