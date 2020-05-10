@@ -30,7 +30,7 @@ const sendForm = (formId) => {
 
         const validateEmail = (input) => {
             input.addEventListener('input', event => {
-               event.target.value = event.target.value.replace(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, '');             
+                  event.target.value = event.target.value.replace(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]$/, '');                          
             });
         };
 
