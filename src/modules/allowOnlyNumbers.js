@@ -7,7 +7,6 @@ const allowOnlyNumbers = () => {
         
         let target = e.target;     
         
-       // если не цифры - заменяем на ''
        target.value = target.value.replace(/[^\d]/g, '');   
         });
     });

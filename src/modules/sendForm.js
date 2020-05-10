@@ -24,7 +24,13 @@ const sendForm = (formId) => {
 
         const validateInput = (input) => {
             input.addEventListener('input', event => {
-                event.target.value = event.target.value.replace(/[^а-я ]/gi, '');
+                event.target.value = event.target.value.replace(/[^а-я]/gi, '');
+            });
+        };
+
+        const validateEmail = (input) => {
+            input.addEventListener('input', event => {
+               event.target.value = event.target.value.replace(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, '');             
             });
         };
 
@@ -44,6 +50,10 @@ const sendForm = (formId) => {
                 let inputMessage = form.querySelector('input[name=user_message]');
                 validateInput(inputMessage);    
             }
+            if(item.name === 'user_email'){
+                let inputEmail = form.querySelector('input[name=user_email]');
+                validateEmail(inputEmail);    
+            }
         });
         
         form.addEventListener('submit', (event) => {
@@ -62,12 +72,19 @@ const sendForm = (formId) => {
             const outputData = () => {
                 preloader.classList.remove('loaded');
                 preloader.textContent = successMessage;
+                setTimeout(() => {
+                    preloader.textContent = '';
+                }, 3000);    
+              
                 document.getElementById(formId).reset();
             };
 
             const errorCase = () => {
                 preloader.classList.remove('loaded');
                 preloader.textContent = errorMessage;
+                setTimeout(() => {
+                    preloader.textContent = '';
+                }, 3000);
             };
 
             const postData = (body) => {
